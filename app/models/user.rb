@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   authenticates_with_sorcery!
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
@@ -7,5 +7,5 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: true
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
 end
